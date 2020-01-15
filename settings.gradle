@@ -1,0 +1,2 @@
+include ':sample', ':spannablehelper'
+rootProject.name='SpannableHelper'
