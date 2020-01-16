@@ -52,7 +52,7 @@ class SpannableBuilder {
     fun build() {
         tv?.highlightColor = Color.parseColor("#00ffffff")
         tv?.movementMethod = LinkMovementMethod.getInstance()
-        tv?.text = SpannableHelper.changeMultiPart(context, content, changeItemList)
+        tv?.text = SpannableHelper.changeMultiPart(context, content, changeItemList,textClickListener)
     }
 
 }

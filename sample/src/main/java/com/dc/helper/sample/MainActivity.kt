@@ -1,12 +1,14 @@
 package com.dc.helper.sample
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
 import android.widget.SeekBar
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.dc.spannablehelper.ChangeItem
 import com.dc.spannablehelper.SpannableHelper
+import com.dc.spannablehelper.TextClickListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,23 +23,26 @@ class MainActivity : AppCompatActivity() {
                 val currentGreen =
                     Integer.toHexString((255 * (p1.toFloat() / progress_main_size.max)).toInt())
 
+                val textSize = if (p1 < 1) spToPx(1f) else spToPx(p1.toFloat())
+
                 SpannableHelper.with(tv_main_change, tv_main_change.text.toString())
-                    .addChangeItem(
-                        ChangeItem(
-                            "大小", ChangeItem.Type.SIZE, TypedValue.applyDimension(
-                                TypedValue.COMPLEX_UNIT_SP,
-                                if (p1 < 1) 1f else p1.toFloat(),
-                                resources.displayMetrics
-                            ).toInt()
-                        )
-                    )
+                    .addChangeItem(ChangeItem("大小", ChangeItem.Type.SIZE, textSize.toInt()))
                     .addChangeItem(
                         ChangeItem(
                             "颜色",
                             ChangeItem.Type.COLOR,
                             Color.parseColor("#FFFF${if (currentGreen.length == 1) "0${currentGreen}" else currentGreen}00")
+                            , true
                         )
-                    )
+                    ).setTextClickListener(object : TextClickListener {
+                        override fun onTextClick(clickContent: String) {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "点击内容：$clickContent",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    })
                     .build()
             }
 
@@ -49,4 +54,12 @@ class MainActivity : AppCompatActivity() {
 
         })
     }
+
+    private fun spToPx(sp: Float): Float {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_SP,
+            sp, resources.displayMetrics
+        )
+    }
+
 }
