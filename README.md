@@ -6,7 +6,7 @@
 
 
 ### usage
-```
+```kotlin
 SpannableHelper.with(textView, content)
     .addChangeItem(ChangeItem(changeStr, ChangeItem.Type.SIZE, textSize))
     .addChangeItem(ChangeItem(changeStr,ChangeItem.Type.COLOR,textColor,isClickAble))
