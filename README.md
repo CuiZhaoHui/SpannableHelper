@@ -2,7 +2,7 @@
 
 快速实现文本部分变色、改变大小、部分点击的轻量工具类
 
-## ScreenShot
+## Screenshot
 ![](https://raw.githubusercontent.com/CuiZhaoHui/SpannableHelper/master/gif/RECORD.gif)
 
 
