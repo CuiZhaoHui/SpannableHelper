@@ -8,12 +8,12 @@
 #### usage
 ```
 SpannableHelper.with(textView, content)
-                    .addChangeItem(ChangeItem(changeStr, ChangeItem.Type.SIZE, textSize))
-                    .addChangeItem(ChangeItem(changeStr,ChangeItem.Type.COLOR,textColor,isClickAble))
-                    .setTextClickListener(object : TextClickListener {
-                        override fun onTextClick(clickContent: String) {
-                            //TODO do something
-                        }
-                    })
-                    .build()
+    .addChangeItem(ChangeItem(changeStr, ChangeItem.Type.SIZE, textSize))
+    .addChangeItem(ChangeItem(changeStr,ChangeItem.Type.COLOR,textColor,isClickAble))
+    .setTextClickListener(object : TextClickListener {
+        override fun onTextClick(clickContent: String) {
+            //TODO do something
+        }
+    })
+    .build()
 ```
