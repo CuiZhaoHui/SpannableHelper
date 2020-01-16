@@ -1,11 +1,11 @@
 # SpannableHelper
-----
+
 ## 快速实现文本部分变色、改变大小、部分点击的轻量工具类
 ---
 ![](https://raw.githubusercontent.com/CuiZhaoHui/SpannableHelper/master/gif/RECORD.gif)
-----
 
-#### usage
+
+### usage
 ```
 SpannableHelper.with(textView, content)
     .addChangeItem(ChangeItem(changeStr, ChangeItem.Type.SIZE, textSize))
