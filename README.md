@@ -7,6 +7,10 @@
 
 
 ## usage
+```
+implementation 'com.dacui.library:spannable-helper:1.0.1'
+```
+
 ```kotlin
 SpannableHelper.with(textView, content)
     .addChangeItem(ChangeItem(changeStr, ChangeItem.Type.SIZE, textSize))
