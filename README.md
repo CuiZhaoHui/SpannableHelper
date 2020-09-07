@@ -8,7 +8,7 @@
 
 ## usage
 ```
-implementation 'com.dacui.library:spannable-helper:1.0.1'
+implementation 'com.dacui.library:spannable-helper:1.0.2'
 ```
 
 ```kotlin
