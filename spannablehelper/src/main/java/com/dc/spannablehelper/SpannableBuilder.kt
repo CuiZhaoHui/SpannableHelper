@@ -13,7 +13,7 @@ import android.widget.TextView
 class SpannableBuilder {
     private lateinit var context: Context
     private var tv: TextView? = null
-    private var content: String? = ""
+    private var content: String = ""
     private var textClickListener: TextClickListener? = null
     private val changeItemList = mutableListOf<ChangeItem>()
 

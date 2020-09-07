@@ -8,8 +8,10 @@ package com.dc.spannablehelper
  * @param type 操作类型
  * @param value 颜色值/字体大小值/图片id
  * @param click 该部分是否要监听点击
+ * @param changeAllPlace 是否所有相同与 partStr 部分都做更改
  */
-class ChangeItem(val partStr: String, val type: Type, val value: Int, val click: Boolean = false) {
+class ChangeItem(val partStr: String, val type: Type, val value: Int
+                 , val click: Boolean = false,val changeAllPlace:Boolean = true) {
 
     enum class Type {
         SIZE,//字体大小

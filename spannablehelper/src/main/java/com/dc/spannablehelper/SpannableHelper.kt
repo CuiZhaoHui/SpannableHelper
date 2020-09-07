@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.text.style.*
 import android.view.View
 import android.widget.TextView
+import org.jetbrains.annotations.NotNull
 
 /**
  *Create by CZH
@@ -18,7 +19,7 @@ import android.widget.TextView
 object SpannableHelper {
 
 
-    fun with(tv: TextView, content: String): SpannableBuilder {
+    fun with(@NotNull tv: TextView, @NotNull content: String): SpannableBuilder {
         val builder = SpannableBuilder()
         builder.setContent(content)
         return builder.setTextView(tv)
@@ -118,7 +119,7 @@ object SpannableHelper {
      * */
     fun changeMultiPart(
         context: Context,
-        content: String?,
+        content: String,
         changeItems: MutableList<ChangeItem>, textClickListener: TextClickListener? = null
     ): SpannableString {
 
@@ -129,58 +130,74 @@ object SpannableHelper {
 
         changeItems.forEach {
             val changeStr = it.partStr
+            val changeStrLength = changeStr.length
 
-            val startIndex = content!!.indexOf(changeStr)
-            val endIndex = startIndex + changeStr.length
+            /*所有开始处角标*/
+            val startIndexes = mutableListOf<Int>()
 
-            if (startIndex != -1 && endIndex != -1) {
-                if (it.click) {
-                    val clickableSpan = object : ClickableSpan() {
-                        override fun onClick(view: View) {
-                            textClickListener?.onTextClick(changeStr)
-                        }
-
-                        override fun updateDrawState(ds: TextPaint) {
-                            super.updateDrawState(ds)
-                            ds.isUnderlineText = false
-                        }
+            var start = -1
+            if (it.changeAllPlace) {
+                do {
+                    start = content.indexOf(changeStr, start+1)
+                    if (start >= 0) {
+                        startIndexes.add(start)
                     }
-                    spannable.setSpan(
-                        clickableSpan,
-                        startIndex,
-                        endIndex,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                    )
-                }
-                when (it.type) {
-                    ChangeItem.Type.COLOR -> {
+                } while (start > 0)
+            } else {
+                startIndexes.add(content.indexOf(changeStr, start))
+            }
+
+            startIndexes.forEach {startIndex->
+                val endIndex = startIndex + changeStrLength
+
+                if (startIndex != -1 && endIndex != -1) {
+                    if (it.click) {
+                        val clickableSpan = object : ClickableSpan() {
+                            override fun onClick(view: View) {
+                                textClickListener?.onTextClick(changeStr)
+                            }
+
+                            override fun updateDrawState(ds: TextPaint) {
+                                super.updateDrawState(ds)
+                                ds.isUnderlineText = false
+                            }
+                        }
                         spannable.setSpan(
-                            ForegroundColorSpan(it.value),
+                            clickableSpan,
                             startIndex,
                             endIndex,
-                            SpannableString.SPAN_INCLUSIVE_EXCLUSIVE
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                         )
                     }
-                    ChangeItem.Type.SIZE -> {
-                        spannable.setSpan(
-                            AbsoluteSizeSpan(it.value),
-                            startIndex,
-                            endIndex,
-                            Spannable.SPAN_INCLUSIVE_EXCLUSIVE
-                        )
-                    }
-                    ChangeItem.Type.ICON -> {
-                        spannable.setSpan(
-                            ImageSpan(context, it.value, DynamicDrawableSpan.ALIGN_BASELINE)
-                            , startIndex, endIndex, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-                        )
-                    }
-                    else -> {
+                    when (it.type) {
+                        ChangeItem.Type.COLOR -> {
+                            spannable.setSpan(
+                                ForegroundColorSpan(it.value),
+                                startIndex,
+                                endIndex,
+                                SpannableString.SPAN_INCLUSIVE_EXCLUSIVE
+                            )
+                        }
+                        ChangeItem.Type.SIZE -> {
+                            spannable.setSpan(
+                                AbsoluteSizeSpan(it.value),
+                                startIndex,
+                                endIndex,
+                                Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+                            )
+                        }
+                        ChangeItem.Type.ICON -> {
+                            spannable.setSpan(
+                                ImageSpan(context, it.value, DynamicDrawableSpan.ALIGN_BASELINE)
+                                , startIndex, endIndex, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
+                        }
+                        else -> {
 
+                        }
                     }
                 }
             }
-
         }
         return spannable
     }
