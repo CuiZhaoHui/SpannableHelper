@@ -22,3 +22,5 @@ SpannableHelper.with(textView, content)
     })
     .build()
 ```
+##TODO
+解决在列表中占据事件的问题
