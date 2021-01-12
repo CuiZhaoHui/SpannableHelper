@@ -1,8 +1,8 @@
 package com.dc.spannablehelper
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.text.method.LinkMovementMethod
 import android.widget.TextView
 
 /**
@@ -49,10 +49,15 @@ class SpannableBuilder {
         return this
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     fun build() {
         tv?.highlightColor = Color.parseColor("#00ffffff")
-        tv?.movementMethod = LinkMovementMethod.getInstance()
-        tv?.text = SpannableHelper.changeMultiPart(context, content, changeItemList,textClickListener)
+        tv?.setOnTouchListener(TextClickMovementMethod.instance)
+//        tv?.movementMethod = ClickMovementMethod.instance
+//        tv?.isClickable = false
+//        tv?.isFocusable = false
+//        tv?.isLongClickable = false
+        tv?.text = SpannableHelper.changeMultiPart(context, content, changeItemList, textClickListener)
     }
 
 }
