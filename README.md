@@ -7,10 +7,21 @@
 
 
 ## usage
+Step1:
 ```
-implementation 'com.dacui.library:spannable-helper:1.0.3'
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
 ```
 
+Step2:
+```
+implementation 'com.github.CuiZhaoHui:SpannableHelper:1.0.3'
+```
+Step3:
 ```kotlin
 SpannableHelper.with(textView, content)
     .addChangeItem(ChangeItem(changeStr, ChangeItem.Type.SIZE, textSize))//Change text size
