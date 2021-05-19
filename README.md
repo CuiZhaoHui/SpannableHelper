@@ -7,14 +7,20 @@
 
 
 ## usage
+```
+implementation 'com.dacui.library:spannable-helper:1.0.3'
+```
+
 ```kotlin
 SpannableHelper.with(textView, content)
-    .addChangeItem(ChangeItem(changeStr, ChangeItem.Type.SIZE, textSize))
-    .addChangeItem(ChangeItem(changeStr,ChangeItem.Type.COLOR,textColor,isClickAble))
+    .addChangeItem(ChangeItem(changeStr, ChangeItem.Type.SIZE, textSize))//Change text size
+    .addChangeItem(ChangeItem(changeStr,ChangeItem.Type.COLOR,textColor,isClickAble))// Change text color
+    .addChangeItem(ImageChanger(changeStr, [Image resource id], [image width],
+                        [image height], [left margin], [right margin], isClickAble, changeAllPlace))//Change text to icon
     .setTextClickListener(object : TextClickListener {
         override fun onTextClick(clickContent: String) {
             //TODO do something
         }
     })
-    .build()
+    .build()//Do not forget build()!~~
 ```
