@@ -10,11 +10,11 @@
 Step1:
 ```
 allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
 	}
+}
 ```
 
 Step2:
